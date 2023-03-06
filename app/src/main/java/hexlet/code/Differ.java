@@ -2,6 +2,7 @@ package hexlet.code;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -21,11 +22,11 @@ public class Differ {
             TreeSet<String> keys = new TreeSet<>(firstFileJSON.keySet());
             keys.addAll(secondFileJSON.keySet());
 
-            for(String key : keys) {
+            for (String key : keys) {
                 String value1 = firstFileJSON.get(key);
                 String value2 = secondFileJSON.get(key);
 
-                if(firstFileJSON.containsKey(key) && secondFileJSON.containsKey(key)) {
+                if (firstFileJSON.containsKey(key) && secondFileJSON.containsKey(key)) {
                     if (value1.equals(value2)) {
                         formatString(result, key, value1, null);
                     } else {
@@ -58,10 +59,10 @@ public class Differ {
         builder.append(value);
         builder.append("\n");
     }
-    public static String readFile(String filepath) throws Exception {
+    public static String readFile(String filepath) throws IOException {
         Path path = Paths.get(filepath).toAbsolutePath().normalize();
         if (!Files.exists(path)) {
-            throw new Exception("File '" + path + "' does not exist");
+            throw new IOException("File '" + path + "' does not exist");
         }
         return Files.readString(path);
     }
