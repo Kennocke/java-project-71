@@ -26,6 +26,7 @@ public class App implements Callable<Integer> {
     }
     @Override
     public Integer call() throws Exception {
-        return null;
+        System.out.println(Differ.genDiff(filepath1, filepath2));
+        return 0;
     }
 }
