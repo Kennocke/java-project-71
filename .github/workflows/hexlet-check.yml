@@ -18,7 +18,8 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - run: make build
+      - name: Build application
+        run: make -C ./app build
 
       - name: Hexlet project check
         uses: hexlet/project-action@release
