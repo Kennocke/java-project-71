@@ -14,12 +14,12 @@ public class DifferTest {
                 {
                     - id : file
                     + id2 : file2
-                    - menu2 : test
-                    + menu2 : test2
+                      menu2 : test
                     - value : File
-                    + value2 : File2
+                    + value2 : {menu1=papa, id3=mama}
+                    + value3 : [1, 2, 3]
                 }""";
-            String result = Differ.genDiff(filePath1, filePath2);
+            String result = Differ.genDiff(filePath1, filePath2, "stylish");
             assertEquals(expectingData, result);
         } catch (Exception e) {
             e.printStackTrace();
@@ -34,12 +34,12 @@ public class DifferTest {
                 {
                     - id : file
                     + id2 : file2
-                    - menu2 : test
-                    + menu2 : test2
+                      menu2 : test
                     - value : File
-                    + value2 : File2
+                    + value2 : {menu1=papa, id3=mama}
+                    + value3 : [1, 2, 3]
                 }""";
-            String result = Differ.genDiff(filePath1, filePath2);
+            String result = Differ.genDiff(filePath1, filePath2, "stylish");
             assertEquals(expectingData, result);
         } catch (Exception e) {
             e.printStackTrace();

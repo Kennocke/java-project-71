@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.util.Map;
 
 public class Parser {
-    public static Map<String, String> parse(String stringToParse, String fileFormat) throws Exception {
+    public static Map<String, Object> parse(String stringToParse, String fileFormat) throws Exception {
         switch (fileFormat) {
             case "json":
                 return parseJSON(stringToParse);
@@ -18,12 +18,12 @@ public class Parser {
         }
     }
 
-    private static Map<String, String> parseJSON(String json) throws IOException {
+    private static Map<String, Object> parseJSON(String json) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         return mapper.readValue(json, Map.class);
     }
 
-    private static Map<String, String> parseYAML(String yaml) throws IOException {
+    private static Map<String, Object> parseYAML(String yaml) throws IOException {
         ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
         return mapper.readValue(yaml, Map.class);
     }

@@ -5,62 +5,54 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.TreeSet;
+import java.util.HashMap;
 
 public class Differ {
-    public static void main(String[] args) {
-        try {
-            getDataObject("/Users/svitkovskiy/Projects/java-project-71/app/src/test/resources/test1.json");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-    public static String genDiff(String filepath1, String filepath2) throws Exception {
-        Map<String, String> firstDataObject = getDataObject(filepath1);
-        Map<String, String> secondDataObject = getDataObject(filepath2);
+    public static String genDiff(String filepath1, String filepath2, String printFormat) throws Exception {
+        Map<String, Object> firstDataObject = getDataObject(filepath1);
+        Map<String, Object> secondDataObject = getDataObject(filepath2);
 
-        StringBuilder result = new StringBuilder("{\n");
+        List<Map<String, Object>> diffResult = new ArrayList<>();
         TreeSet<String> keys = new TreeSet<>(firstDataObject.keySet());
         keys.addAll(secondDataObject.keySet());
 
         for (String key : keys) {
-            String value1 = firstDataObject.get(key);
-            String value2 = secondDataObject.get(key);
-
             if (firstDataObject.containsKey(key) && secondDataObject.containsKey(key)) {
-                if (value1.equals(value2)) {
-                    formatString(result, key, value1, null);
+                if (firstDataObject.get(key).equals(secondDataObject.get(key))) {
+                    diffResult.add(createDiffRow(key, firstDataObject.get(key), null));
                 } else {
-                    formatString(result, key, value1, "-");
-                    formatString(result, key, value2, "+");
+                    diffResult.add(createDiffRow(key, firstDataObject.get(key), "-"));
+                    diffResult.add(createDiffRow(key, secondDataObject.get(key), "+"));
                 }
             } else if (firstDataObject.containsKey(key) && !secondDataObject.containsKey(key)) {
-                formatString(result, key, value1, "-");
+                diffResult.add(createDiffRow(key, firstDataObject.get(key), "-"));
             } else {
-                formatString(result, key, value2, "+");
+                diffResult.add(createDiffRow(key, secondDataObject.get(key), "+"));
             }
         }
-        result.append("}");
-        return result.toString();
+
+        return Formatter.format(diffResult, printFormat);
     }
-    private static Map<String, String> getDataObject(String filepath) throws Exception {
+
+    private static Map<String, Object> createDiffRow(String key, Object value, String result) {
+        Map<String, Object> diffRow = new HashMap<>();
+
+        diffRow.put("key", key);
+        diffRow.put("value", value);
+        diffRow.put("result", result);
+
+        return diffRow;
+    }
+
+    private static Map<String, Object> getDataObject(String filepath) throws Exception {
         String fileExtension = Paths.get(filepath).getFileName().toString().split("\\.")[1].toLowerCase();
         String fileData = readFile(filepath);
         return Parser.parse(fileData, fileExtension);
     }
-    private static void formatString(StringBuilder builder, String key, String value, String sign) {
-        builder.append("    ");
 
-        if (sign != null) {
-            builder.append(sign);
-            builder.append(" ");
-        }
-
-        builder.append(key);
-        builder.append(" : ");
-        builder.append(value);
-        builder.append("\n");
-    }
     private static String readFile(String filepath) throws IOException {
         Path path = Paths.get(filepath).toAbsolutePath().normalize();
 

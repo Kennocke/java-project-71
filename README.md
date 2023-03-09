@@ -7,3 +7,6 @@ Compare JSON Files
 
 Compare YAML Files
 <a href="https://asciinema.org/a/KBzBp8myDG1KkmtTCgJndvTZU" target="_blank"><img src="https://asciinema.org/a/KBzBp8myDG1KkmtTCgJndvTZU.svg" /></a>
+
+Comparison of nested structures
+<a href="https://asciinema.org/a/z4HIeq29ZzpJzDimhQZA6na10" target="_blank"><img src="https://asciinema.org/a/z4HIeq29ZzpJzDimhQZA6na10.svg" /></a>

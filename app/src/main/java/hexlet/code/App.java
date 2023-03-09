@@ -18,15 +18,15 @@ public class App implements Callable<Integer> {
     private String filepath1;
     @Parameters(index = "1", description = "path to second file")
     private String filepath2;
-    @Option(names = {"-f", "--format"}, description = "output format [default: stylish]")
-    private String format = "stylish";
+    @Option(names = {"-f", "--format"}, description = "output format [default: stylish]", defaultValue = "stylish")
+    private String format;
     public static void main(String[] args) {
         int exitCode = new CommandLine(new App()).execute(args);
         System.exit(exitCode);
     }
     @Override
     public Integer call() throws Exception {
-        System.out.println(Differ.genDiff(filepath1, filepath2));
+        System.out.println(Differ.genDiff(filepath1, filepath2, format));
         return 0;
     }
 }
