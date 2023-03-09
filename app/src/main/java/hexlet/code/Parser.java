@@ -1,0 +1,30 @@
+package hexlet.code;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
+
+import java.io.IOException;
+import java.util.Map;
+
+public class Parser {
+    public static Map<String, String> parse(String stringToParse, String fileFormat) throws Exception {
+        switch (fileFormat) {
+            case "json":
+                return parseJSON(stringToParse);
+            case "yaml":
+                return parseYAML(stringToParse);
+            default:
+                throw new RuntimeException("Unknown file format");
+        }
+    }
+
+    private static Map<String, String> parseJSON(String json) throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        return mapper.readValue(json, Map.class);
+    }
+
+    private static Map<String, String> parseYAML(String yaml) throws IOException {
+        ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
+        return mapper.readValue(yaml, Map.class);
+    }
+}
