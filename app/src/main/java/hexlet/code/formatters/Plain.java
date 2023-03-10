@@ -14,9 +14,8 @@ public class Plain {
                         || row.get("newValue") instanceof HashMap ? "[complex value]" : row.get("newValue");
                 builder.append("Property '");
                 builder.append(row.get("key"));
-                builder.append("' was added with value: '");
+                builder.append("' was added with value: ");
                 builder.append(newValue);
-                builder.append("'");
                 builder.append("\n");
             } else if (row.get("operation").equals("delete")) {
                 builder.append("Property '");
@@ -32,9 +31,8 @@ public class Plain {
                 builder.append(row.get("key"));
                 builder.append("' was updated. From ");
                 builder.append(oldValue);
-                builder.append("' to '");
+                builder.append(" to ");
                 builder.append(newValue);
-                builder.append("'");
                 builder.append("\n");
             }
         }

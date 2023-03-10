@@ -33,14 +33,13 @@ public class DifferTest {
         String filePath2 = "./src/test/resources/test2.yml";
         try {
             String expectingData = """
-                {
                     - id : file
                     + id2 : file2
                       menu2 : test
                     - value : File
                     + value2 : {menu1=papa, id3=mama}
                     + value3 : [1, 2, 3]
-                }""";
+                    """;
             String result = Differ.generate(filePath1, filePath2, "stylish");
             assertEquals(expectingData, result);
         } catch (Exception e) {
