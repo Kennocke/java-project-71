@@ -13,12 +13,12 @@ public class DifferTest {
             String filePath2 = "./src/test/resources/test2.json";
             String expectingData = """
                 {
-                    - id : file
-                    + id2 : file2
-                      menu2 : test
-                    - value : File
-                    + value2 : {menu1=papa, id3=mama}
-                    + value3 : [1, 2, 3]
+                  - id: file
+                  + id2: file2
+                    menu2: test
+                  - value: File
+                  + value2: {menu1=papa, id3=mama}
+                  + value3: [1, 2, 3]
                 }""";
             String result = Differ.generate(filePath1, filePath2, "stylish");
             assertEquals(expectingData, result);
@@ -33,13 +33,14 @@ public class DifferTest {
         String filePath2 = "./src/test/resources/test2.yml";
         try {
             String expectingData = """
-                    - id : file
-                    + id2 : file2
-                      menu2 : test
-                    - value : File
-                    + value2 : {menu1=papa, id3=mama}
-                    + value3 : [1, 2, 3]
-                    """;
+                {
+                  - id: file
+                  + id2: file2
+                    menu2: test
+                  - value: File
+                  + value2: {menu1=papa, id3=mama}
+                  + value3: [1, 2, 3]
+                }""";
             String result = Differ.generate(filePath1, filePath2, "stylish");
             assertEquals(expectingData, result);
         } catch (Exception e) {
@@ -53,13 +54,11 @@ public class DifferTest {
         String filePath2 = "./src/test/resources/test2.json";
         try {
             String expectingData = """
-                {
-                    Property 'id' was removed
-                    Property 'id2' was added with value: 'file2'
-                    Property 'value' was removed
-                    Property 'value2' was added with value: '[complex value]'
-                    Property 'value3' was added with value: '[complex value]'
-                }""";
+                Property 'id' was removed
+                Property 'id2' was added with value: 'file2'
+                Property 'value' was removed
+                Property 'value2' was added with value: [complex value]
+                Property 'value3' was added with value: [complex value]""";
             String result = Differ.generate(filePath1, filePath2, "plain");
             assertEquals(expectingData, result);
         } catch (Exception e) {
