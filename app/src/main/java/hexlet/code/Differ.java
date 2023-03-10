@@ -11,6 +11,15 @@ import java.util.TreeSet;
 import java.util.HashMap;
 
 public class Differ {
+    public static void main(String[] args) {
+        try {
+            System.out.println(generate(
+                    "/Users/svitkovskiy/Projects/java-project-71/app/src/test/resources/file1.json",
+                    "/Users/svitkovskiy/Projects/java-project-71/app/src/test/resources/file2.json"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
     public static String generate(String filepath1, String filepath2, String printFormat) throws Exception {
         Map<String, Object> firstDataObject = getDataObject(filepath1);
         Map<String, Object> secondDataObject = getDataObject(filepath2);
@@ -21,7 +30,9 @@ public class Differ {
 
         for (String key : keys) {
             if (firstDataObject.containsKey(key) && secondDataObject.containsKey(key)) {
-                if (firstDataObject.get(key).equals(secondDataObject.get(key))) {
+                if (firstDataObject.get(key) == null && secondDataObject.get(key) == null) {
+                    diffResult.add(insertDiffRow(key, firstDataObject.get(key)));
+                } else if (!(firstDataObject.get(key) == null || secondDataObject.get(key) == null) && firstDataObject.get(key).equals(secondDataObject.get(key))) {
                     diffResult.add(insertDiffRow(key, firstDataObject.get(key)));
                 } else {
                     diffResult.add(updateRow(key, firstDataObject.get(key), secondDataObject.get(key)));

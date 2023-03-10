@@ -8,14 +8,11 @@ import java.util.Map;
 
 public class Parser {
     public static Map<String, Object> parse(String stringToParse, String fileFormat) throws Exception {
-        switch (fileFormat) {
-            case "json":
-                return parseJSON(stringToParse);
-            case "yaml":
-                return parseYAML(stringToParse);
-            default:
-                throw new RuntimeException("Unknown file format");
-        }
+        return switch (fileFormat) {
+            case "json" -> parseJSON(stringToParse);
+            case "yml" -> parseYAML(stringToParse);
+            default -> throw new RuntimeException("Unknown file format");
+        };
     }
 
     private static Map<String, Object> parseJSON(String json) throws IOException {

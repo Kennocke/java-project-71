@@ -3,7 +3,7 @@ package hexlet.code.formatters;
 import java.util.List;
 import java.util.Map;
 
-public class Stylish {
+public class   Stylish {
     public static String format(List<Map<String, Object>> diffData) {
         StringBuilder builder = new StringBuilder("{\n");
         for (Map<String, Object> row : diffData) {
@@ -23,7 +23,9 @@ public class Stylish {
                 builder.append(row.get("key"));
                 builder.append(" : ");
                 builder.append(row.get("oldValue"));
+                builder.append("\n");
 
+                builder.append("    ");
                 builder.append("+ ");
                 builder.append(row.get("key"));
                 builder.append(" : ");
