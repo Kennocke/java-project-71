@@ -7,12 +7,11 @@ import java.util.Map;
 
 public class Plain {
     public static String format(List<Map<String, Object>> diffData) {
-        StringBuilder builder = new StringBuilder("{\n");
+        StringBuilder builder = new StringBuilder();
         for (Map<String, Object> row : diffData) {
             if (row.get("operation").equals("add")) {
                 Object newValue = row.get("newValue") instanceof ArrayList
                         || row.get("newValue") instanceof HashMap ? "[complex value]" : row.get("newValue");
-                builder.append("    ");
                 builder.append("Property '");
                 builder.append(row.get("key"));
                 builder.append("' was added with value: '");
@@ -20,7 +19,6 @@ public class Plain {
                 builder.append("'");
                 builder.append("\n");
             } else if (row.get("operation").equals("delete")) {
-                builder.append("    ");
                 builder.append("Property '");
                 builder.append(row.get("key"));
                 builder.append("' was removed");
@@ -30,7 +28,6 @@ public class Plain {
                         || row.get("oldValue") instanceof HashMap ? "[complex value]" : row.get("oldValue");
                 Object newValue = row.get("newValue") instanceof ArrayList
                         || row.get("newValue") instanceof HashMap ? "[complex value]" : row.get("newValue");
-                builder.append("    ");
                 builder.append("Property '");
                 builder.append(row.get("key"));
                 builder.append("' was updated. From ");
@@ -41,7 +38,6 @@ public class Plain {
                 builder.append("\n");
             }
         }
-        builder.append("}");
         return builder.toString();
     }
 }
