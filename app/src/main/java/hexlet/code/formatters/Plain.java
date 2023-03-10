@@ -11,7 +11,11 @@ public class Plain {
         for (Map<String, Object> row : diffData) {
             if (row.get("operation").equals("add")) {
                 Object newValue = row.get("newValue") instanceof ArrayList
-                        || row.get("newValue") instanceof HashMap ? "[complex value]" : row.get("newValue");
+                        || row.get("newValue") instanceof HashMap
+                        ? "[complex value]"
+                        : row.get("newValue") instanceof String
+                        ? "'" + row.get("newValue") + "'"
+                        : row.get("newValue");
                 builder.append("Property '");
                 builder.append(row.get("key"));
                 builder.append("' was added with value: ");
@@ -24,9 +28,17 @@ public class Plain {
                 builder.append("\n");
             } else if (row.get("operation").equals("update")) {
                 Object oldValue = row.get("oldValue") instanceof ArrayList
-                        || row.get("oldValue") instanceof HashMap ? "[complex value]" : row.get("oldValue");
+                        || row.get("oldValue") instanceof HashMap
+                        ? "[complex value]"
+                        : row.get("oldValue") instanceof String
+                        ? "'" + row.get("oldValue") + "'"
+                        : row.get("oldValue");
                 Object newValue = row.get("newValue") instanceof ArrayList
-                        || row.get("newValue") instanceof HashMap ? "[complex value]" : row.get("newValue");
+                        || row.get("newValue") instanceof HashMap
+                        ? "[complex value]"
+                        : row.get("newValue") instanceof String
+                        ? "'" + row.get("newValue") + "'"
+                        : row.get("newValue");
                 builder.append("Property '");
                 builder.append(row.get("key"));
                 builder.append("' was updated. From ");
