@@ -36,6 +36,10 @@ public class Differ {
         return Formatter.format(diffResult, printFormat);
     }
 
+    public static String generate(String filepath1, String filepath2) throws Exception {
+        return generate(filepath1, filepath2, "stylish");
+    }
+
     private static Map<String, Object> insertDiffRow(String key, Object newValue) {
         Map<String, Object> row = new HashMap<>();
 
