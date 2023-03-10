@@ -32,7 +32,8 @@ public class Differ {
             if (firstDataObject.containsKey(key) && secondDataObject.containsKey(key)) {
                 if (firstDataObject.get(key) == null && secondDataObject.get(key) == null) {
                     diffResult.add(insertDiffRow(key, firstDataObject.get(key)));
-                } else if (!(firstDataObject.get(key) == null || secondDataObject.get(key) == null) && firstDataObject.get(key).equals(secondDataObject.get(key))) {
+                } else if (!(firstDataObject.get(key) == null || secondDataObject.get(key) == null)
+                        && firstDataObject.get(key).equals(secondDataObject.get(key))) {
                     diffResult.add(insertDiffRow(key, firstDataObject.get(key)));
                 } else {
                     diffResult.add(updateRow(key, firstDataObject.get(key), secondDataObject.get(key)));

@@ -9,8 +9,8 @@ public class DifferTest {
     @Test()
     public void genDiffJSONTest() {
         try {
-            String filePath1 = "./src/test/resources/file1.json";
-            String filePath2 = "./src/test/resources/file2.json";
+            String filePath1 = "./src/test/resources/test1.json";
+            String filePath2 = "./src/test/resources/test2.json";
             String expectingData = """
                 {
                     - id : file
