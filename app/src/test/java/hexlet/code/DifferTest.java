@@ -19,7 +19,7 @@ public class DifferTest {
                     + value2 : {menu1=papa, id3=mama}
                     + value3 : [1, 2, 3]
                 }""";
-            String result = Differ.genDiff(filePath1, filePath2, "stylish");
+            String result = Differ.generate(filePath1, filePath2, "stylish");
             assertEquals(expectingData, result);
         } catch (Exception e) {
             e.printStackTrace();
@@ -39,7 +39,7 @@ public class DifferTest {
                     + value2 : {menu1=papa, id3=mama}
                     + value3 : [1, 2, 3]
                 }""";
-            String result = Differ.genDiff(filePath1, filePath2, "stylish");
+            String result = Differ.generate(filePath1, filePath2, "stylish");
             assertEquals(expectingData, result);
         } catch (Exception e) {
             e.printStackTrace();

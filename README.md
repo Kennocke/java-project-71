@@ -10,3 +10,6 @@ Compare YAML Files
 
 Comparison of nested structures
 <a href="https://asciinema.org/a/z4HIeq29ZzpJzDimhQZA6na10" target="_blank"><img src="https://asciinema.org/a/z4HIeq29ZzpJzDimhQZA6na10.svg" /></a>
+
+Plain format
+<a href="https://asciinema.org/a/CeVV6znmPXHcYahdscXJHRZ19" target="_blank"><img src="https://asciinema.org/a/CeVV6znmPXHcYahdscXJHRZ19.svg" /></a>
