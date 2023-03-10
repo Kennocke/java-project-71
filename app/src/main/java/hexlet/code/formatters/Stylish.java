@@ -25,7 +25,7 @@ public class   Stylish {
                 builder.append(row.get("oldValue"));
                 builder.append("\n");
 
-                builder.append("    ");
+                builder.append("  ");
                 builder.append("+ ");
                 builder.append(row.get("key"));
                 builder.append(": ");
