@@ -48,6 +48,6 @@ public class Plain {
                 builder.append("\n");
             }
         }
-        return builder.toString();
+        return builder.toString().trim();
     }
 }
