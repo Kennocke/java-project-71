@@ -13,3 +13,6 @@ Comparison of nested structures
 
 Plain format
 <a href="https://asciinema.org/a/CeVV6znmPXHcYahdscXJHRZ19" target="_blank"><img src="https://asciinema.org/a/CeVV6znmPXHcYahdscXJHRZ19.svg" /></a>
+
+JSON Format
+<a href="https://asciinema.org/a/KwniVsXwDHMNO9JTSjXRsK9Dr" target="_blank"><img src="https://asciinema.org/a/KwniVsXwDHMNO9JTSjXRsK9Dr.svg" /></a>
