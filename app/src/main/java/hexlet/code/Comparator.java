@@ -18,10 +18,10 @@ public class Comparator {
         for (String key : keys) {
             if (firstDataObject.containsKey(key) && secondDataObject.containsKey(key)) {
                 if (firstDataObject.get(key) == null && secondDataObject.get(key) == null) {
-                    comparisonResult.add(insertDiffRow(key, firstDataObject.get(key)));
+                    comparisonResult.add(addRowWithoutChanges(key, firstDataObject.get(key)));
                 } else if (!(firstDataObject.get(key) == null || secondDataObject.get(key) == null)
                         && firstDataObject.get(key).equals(secondDataObject.get(key))) {
-                    comparisonResult.add(insertDiffRow(key, firstDataObject.get(key)));
+                    comparisonResult.add(addRowWithoutChanges(key, firstDataObject.get(key)));
                 } else {
                     comparisonResult.add(updateRow(key, firstDataObject.get(key), secondDataObject.get(key)));
                 }
@@ -35,43 +35,32 @@ public class Comparator {
         return comparisonResult;
     }
 
-    private static Map<String, Object> insertDiffRow(String key, Object newValue) {
+    private static Map<String, Object> createDiffRow(String operation, String key, Object oldValue, Object newValue) {
         Map<String, Object> row = new HashMap<>();
-
+        row.put("operation", operation);
         row.put("key", key);
-        row.put("oldValue", newValue);
-        row.put("operation", "none");
+        if (oldValue != null) {
+            row.put("oldValue", oldValue);
+        }
+        if (newValue != null) {
+            row.put("newValue", newValue);
+        }
         return row;
+    }
+
+    private static Map<String, Object> addRowWithoutChanges(String key, Object oldValue) {
+        return createDiffRow("none", key, oldValue, null);
     }
 
     private static Map<String, Object> addRow(String key, Object newValue) {
-        Map<String, Object> row = new HashMap<>();
-
-        row.put("key", key);
-        row.put("newValue", newValue);
-        row.put("operation", "add");
-
-        return row;
+        return createDiffRow("add", key, null, newValue);
     }
 
     private static Map<String, Object> deleteRow(String key, Object oldValue) {
-        Map<String, Object> row = new HashMap<>();
-
-        row.put("key", key);
-        row.put("oldValue", oldValue);
-        row.put("operation", "delete");
-
-        return row;
+        return createDiffRow("delete", key, oldValue, null);
     }
 
     private static Map<String, Object> updateRow(String key, Object oldValue, Object newValue) {
-        Map<String, Object> row = new HashMap<>();
-
-        row.put("key", key);
-        row.put("oldValue", oldValue);
-        row.put("newValue", newValue);
-        row.put("operation", "update");
-
-        return row;
+        return createDiffRow("update", key, oldValue, newValue);
     }
 }
