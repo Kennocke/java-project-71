@@ -7,11 +7,11 @@ import java.io.IOException;
 import java.util.Map;
 
 public class Parser {
-    public static Map<String, Object> parse(String stringToParse, String fileFormat) throws Exception {
-        return switch (fileFormat) {
+    public static Map<String, Object> parse(String stringToParse, String format) throws Exception {
+        return switch (format) {
             case "json" -> parseJSON(stringToParse);
             case "yml" -> parseYAML(stringToParse);
-            default -> throw new RuntimeException("Unknown file format");
+            default -> throw new RuntimeException("Unknown format: " + format);
         };
     }
 

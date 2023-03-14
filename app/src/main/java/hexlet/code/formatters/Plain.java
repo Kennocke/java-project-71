@@ -1,53 +1,59 @@
 package hexlet.code.formatters;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class Plain {
     public static String format(List<Map<String, Object>> diffData) {
-        StringBuilder builder = new StringBuilder();
+        StringBuilder result = new StringBuilder();
         for (Map<String, Object> row : diffData) {
-            if (row.get("operation").equals("add")) {
-                Object newValue = row.get("newValue") instanceof ArrayList
-                        || row.get("newValue") instanceof HashMap
-                        ? "[complex value]"
-                        : row.get("newValue") instanceof String
-                        ? "'" + row.get("newValue") + "'"
-                        : row.get("newValue");
-                builder.append("Property '");
-                builder.append(row.get("key"));
-                builder.append("' was added with value: ");
-                builder.append(newValue);
-                builder.append("\n");
-            } else if (row.get("operation").equals("delete")) {
-                builder.append("Property '");
-                builder.append(row.get("key"));
-                builder.append("' was removed");
-                builder.append("\n");
-            } else if (row.get("operation").equals("update")) {
-                Object oldValue = row.get("oldValue") instanceof ArrayList
-                        || row.get("oldValue") instanceof HashMap
-                        ? "[complex value]"
-                        : row.get("oldValue") instanceof String
-                        ? "'" + row.get("oldValue") + "'"
-                        : row.get("oldValue");
-                Object newValue = row.get("newValue") instanceof ArrayList
-                        || row.get("newValue") instanceof HashMap
-                        ? "[complex value]"
-                        : row.get("newValue") instanceof String
-                        ? "'" + row.get("newValue") + "'"
-                        : row.get("newValue");
-                builder.append("Property '");
-                builder.append(row.get("key"));
-                builder.append("' was updated. From ");
-                builder.append(oldValue);
-                builder.append(" to ");
-                builder.append(newValue);
-                builder.append("\n");
+            String key = row.get("key").toString();
+            String operation = row.get("operation").toString();
+            String formattedOldValue = stringify(row.get("oldValue"));
+            String formattedNewValue = stringify(row.get("newValue"));
+
+            switch (operation) {
+                case "add":
+                    result.append("\nProperty '")
+                            .append(key)
+                            .append("' was added with value: ")
+                            .append(formattedNewValue);
+                    break;
+                case "delete":
+                    result.append("\nProperty '")
+                            .append(key)
+                            .append("' was removed");
+                    break;
+                case "update":
+                    result.append("\nProperty '")
+                            .append(key)
+                            .append("' was updated. From ")
+                            .append(formattedOldValue)
+                            .append(" to ")
+                            .append(formattedNewValue);
+                    break;
+                case "none":
+                    break;
+                default:
+                    throw new RuntimeException("Unknown '" + operation + "' operation");
             }
         }
-        return builder.toString().trim();
+        return result.toString().trim();
+    }
+
+    private static String stringify(Object value) {
+        if (value == null) {
+            return "null";
+        }
+
+        if (value instanceof String) {
+            return "'" + value + "'";
+        }
+
+        if (value instanceof Map || value instanceof List) {
+            return "[complex value]";
+        }
+
+        return value.toString();
     }
 }

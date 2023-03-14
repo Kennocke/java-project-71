@@ -3,42 +3,43 @@ package hexlet.code.formatters;
 import java.util.List;
 import java.util.Map;
 
-public class   Stylish {
+public class Stylish {
     public static String format(List<Map<String, Object>> diffData) {
-        StringBuilder builder = new StringBuilder("{\n");
+        StringBuilder result = new StringBuilder("{");
         for (Map<String, Object> row : diffData) {
-            builder.append("  ");
-            if (row.get("operation").equals("add")) {
-                builder.append("+ ");
-                builder.append(row.get("key"));
-                builder.append(": ");
-                builder.append(row.get("newValue"));
-            } else if (row.get("operation").equals("delete")) {
-                builder.append("- ");
-                builder.append(row.get("key"));
-                builder.append(": ");
-                builder.append(row.get("oldValue"));
-            } else if (row.get("operation").equals("update")) {
-                builder.append("- ");
-                builder.append(row.get("key"));
-                builder.append(": ");
-                builder.append(row.get("oldValue"));
-                builder.append("\n");
+            String key = row.get("key").toString();
+            String operation = row.get("operation").toString();
+            String formattedOldValue = stringify(row.get("oldValue"));
+            String formattedNewValue = stringify(row.get("newValue"));
 
-                builder.append("  ");
-                builder.append("+ ");
-                builder.append(row.get("key"));
-                builder.append(": ");
-                builder.append(row.get("newValue"));
-            } else {
-                builder.append("  ");
-                builder.append(row.get("key"));
-                builder.append(": ");
-                builder.append(row.get("oldValue"));
+            result.append("\n  ");
+            switch (operation) {
+                case "add":
+                    result.append("+ ").append(key).append(": ").append(formattedNewValue);
+                    break;
+                case "delete":
+                    result.append("- ").append(key).append(": ").append(formattedOldValue);
+                    break;
+                case "update":
+                    result.append("- ").append(key).append(": ").append(formattedOldValue);
+                    result.append("\n  ").append("+ ").append(key).append(": ").append(formattedNewValue);
+                    break;
+                case "none":
+                    result.append("  ").append(key).append(": ").append(formattedOldValue);
+                    break;
+                default:
+                    throw new RuntimeException("Unknown '" + operation + "' operation");
             }
-            builder.append("\n");
         }
-        builder.append("}");
-        return builder.toString();
+        result.append("\n}");
+        return result.toString();
+    }
+
+    private static String stringify(Object value) {
+        if (value == null) {
+            return "null";
+        }
+
+        return value.toString();
     }
 }

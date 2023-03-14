@@ -14,7 +14,7 @@ public class Formatter {
             case "stylish" -> Stylish.format(diff);
             case "plain" -> Plain.format(diff);
             case "json" -> JSON.format(diff);
-            default -> throw new RuntimeException("Format not supported");
+            default -> throw new RuntimeException("Format '" + mode + "'not supported");
         };
     }
 
