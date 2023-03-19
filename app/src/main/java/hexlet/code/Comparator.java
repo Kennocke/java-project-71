@@ -21,13 +21,9 @@ public class Comparator {
             } else if (!firstDataObject.containsKey(key)) {
                 comparisonResult.add(addRow(key, secondDataObject.get(key)));
             } else if (String.valueOf(firstDataObject.get(key)).equals(String.valueOf(secondDataObject.get(key)))) {
-                comparisonResult.add(addRowWithoutChanges(key, String.valueOf(firstDataObject.get(key))));
+                comparisonResult.add(addRowWithoutChanges(key, firstDataObject.get(key)));
             } else {
-                comparisonResult.add(updateRow(
-                        key,
-                        String.valueOf(firstDataObject.get(key)),
-                        String.valueOf(secondDataObject.get(key))
-                ));
+                comparisonResult.add(updateRow(key, firstDataObject.get(key), secondDataObject.get(key)));
             }
         }
 
@@ -38,12 +34,8 @@ public class Comparator {
         Map<String, Object> row = new HashMap<>();
         row.put("operation", operation);
         row.put("key", key);
-        if (oldValue != null) {
-            row.put("oldValue", oldValue);
-        }
-        if (newValue != null) {
-            row.put("newValue", newValue);
-        }
+        row.put("oldValue", oldValue);
+        row.put("newValue", newValue);
         return row;
     }
 

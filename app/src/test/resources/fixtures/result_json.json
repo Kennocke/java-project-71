@@ -1,16 +1,20 @@
 [ {
+  "newValue" : null,
   "oldValue" : "file",
   "operation" : "delete",
   "key" : "id"
 }, {
   "newValue" : "file2",
+  "oldValue" : null,
   "operation" : "add",
   "key" : "id2"
 }, {
-  "oldValue" : "null",
+  "newValue" : null,
+  "oldValue" : null,
   "operation" : "none",
   "key" : "menu2"
 }, {
+  "newValue" : null,
   "oldValue" : "File",
   "operation" : "delete",
   "key" : "value"
@@ -19,10 +23,12 @@
     "menu1" : "papa",
     "id3" : "mama"
   },
+  "oldValue" : null,
   "operation" : "add",
   "key" : "value2"
 }, {
   "newValue" : [ "1", "2", "3" ],
+  "oldValue" : null,
   "operation" : "add",
   "key" : "value3"
 } ]
