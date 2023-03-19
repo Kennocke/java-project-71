@@ -1,0 +1,5 @@
+Property 'id' was removed
+Property 'id2' was added with value: 'file2'
+Property 'value' was removed
+Property 'value2' was added with value: [complex value]
+Property 'value3' was added with value: [complex value]

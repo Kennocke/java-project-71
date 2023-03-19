@@ -16,19 +16,14 @@ public class Comparator {
         keys.addAll(secondDataObject.keySet());
 
         for (String key : keys) {
-            if (firstDataObject.containsKey(key) && secondDataObject.containsKey(key)) {
-                if (firstDataObject.get(key) == null && secondDataObject.get(key) == null) {
-                    comparisonResult.add(addRowWithoutChanges(key, firstDataObject.get(key)));
-                } else if (!(firstDataObject.get(key) == null || secondDataObject.get(key) == null)
-                        && firstDataObject.get(key).equals(secondDataObject.get(key))) {
-                    comparisonResult.add(addRowWithoutChanges(key, firstDataObject.get(key)));
-                } else {
-                    comparisonResult.add(updateRow(key, firstDataObject.get(key), secondDataObject.get(key)));
-                }
-            } else if (firstDataObject.containsKey(key) && !secondDataObject.containsKey(key)) {
+            if (!secondDataObject.containsKey(key)) {
                 comparisonResult.add(deleteRow(key, firstDataObject.get(key)));
-            } else {
+            } else if (!firstDataObject.containsKey(key)) {
                 comparisonResult.add(addRow(key, secondDataObject.get(key)));
+            } else if (firstDataObject.get(key).equals(secondDataObject.get(key))) {
+                comparisonResult.add(addRowWithoutChanges(key, firstDataObject.get(key)));
+            } else {
+                comparisonResult.add(updateRow(key, firstDataObject.get(key), secondDataObject.get(key)));
             }
         }
 

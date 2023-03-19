@@ -2,106 +2,79 @@ package hexlet.code;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 
 public class DifferTest {
+    private static String resultJSON;
+    private static String resultPlain;
+    private static String resultStylish;
+    private static String firstFileJSONPath;
+    private static String secondFileJSONPath;
+    private static String firstFileYAMLPath;
+    private static String secondFileYAMLPath;
+
+    private static Path getFixturePath(String fileName) {
+        return Paths.get("src", "test", "resources", "fixtures", fileName).toAbsolutePath().normalize();
+    }
+
+    private static String readFixture(String fileName) throws Exception {
+        Path filePath = getFixturePath(fileName);
+        return Files.readString(filePath);
+    }
+
+    @BeforeAll
+    public static void beforeAll() throws Exception {
+        firstFileJSONPath = getFixturePath("data1.json").toString();
+        secondFileJSONPath = getFixturePath("data2.json").toString();
+        firstFileYAMLPath = getFixturePath("data1.yaml").toString();
+        secondFileYAMLPath = getFixturePath("data2.yml").toString();
+
+        resultJSON = readFixture("result_json.json");
+        resultPlain = readFixture("result_plain.txt");
+        resultStylish = readFixture("result_stylish.txt");
+    }
+
     @Test()
-    public void genDiffJSONTest() {
+    public void compareJSONAsStylishTest() {
         try {
-            String filePath1 = "./src/test/resources/test1.json";
-            String filePath2 = "./src/test/resources/test2.json";
-            String expectingData = """
-                {
-                  - id: file
-                  + id2: file2
-                    menu2: test
-                  - value: File
-                  + value2: {menu1=papa, id3=mama}
-                  + value3: [1, 2, 3]
-                }""";
-            String result = Differ.generate(filePath1, filePath2, "stylish");
-            assertEquals(expectingData, result);
+            String result = Differ.generate(firstFileJSONPath, secondFileJSONPath, "stylish");
+            assertEquals(resultStylish, result);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     @Test()
-    public void genDiffYAMLTest() {
-        String filePath1 = "./src/test/resources/test1.yml";
-        String filePath2 = "./src/test/resources/test2.yml";
+    public void compareYAMLAsStylishTest() {
         try {
-            String expectingData = """
-                {
-                  - id: file
-                  + id2: file2
-                    menu2: test
-                  - value: File
-                  + value2: {menu1=papa, id3=mama}
-                  + value3: [1, 2, 3]
-                }""";
-            String result = Differ.generate(filePath1, filePath2, "stylish");
-            assertEquals(expectingData, result);
+            String result = Differ.generate(firstFileYAMLPath, secondFileYAMLPath, "stylish");
+            assertEquals(resultStylish, result);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     @Test()
-    public void genDiffOutputPlainTest() {
-        String filePath1 = "./src/test/resources/test1.json";
-        String filePath2 = "./src/test/resources/test2.json";
+    public void compareJSONAsPlainTest() {
         try {
-            String expectingData = """
-                Property 'id' was removed
-                Property 'id2' was added with value: 'file2'
-                Property 'value' was removed
-                Property 'value2' was added with value: [complex value]
-                Property 'value3' was added with value: [complex value]""";
-            String result = Differ.generate(filePath1, filePath2, "plain");
-            assertEquals(expectingData, result);
+            String result = Differ.generate(firstFileJSONPath, secondFileJSONPath, "plain");
+            assertEquals(resultPlain, result);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     @Test()
-    public void genDiffOutputJSONTest() {
-        String filePath1 = "./src/test/resources/test1.json";
-        String filePath2 = "./src/test/resources/test2.json";
+    public void compareJSONAsJSONTest() {
         try {
-            String expectingData = """
-                [ {
-                  "oldValue" : "file",
-                  "operation" : "delete",
-                  "key" : "id"
-                }, {
-                  "newValue" : "file2",
-                  "operation" : "add",
-                  "key" : "id2"
-                }, {
-                  "oldValue" : "test",
-                  "operation" : "none",
-                  "key" : "menu2"
-                }, {
-                  "oldValue" : "File",
-                  "operation" : "delete",
-                  "key" : "value"
-                }, {
-                  "newValue" : {
-                    "menu1" : "papa",
-                    "id3" : "mama"
-                  },
-                  "operation" : "add",
-                  "key" : "value2"
-                }, {
-                  "newValue" : [ "1", "2", "3" ],
-                  "operation" : "add",
-                  "key" : "value3"
-                } ]""";
-            String result = Differ.generate(filePath1, filePath2, "json");
-            assertEquals(expectingData, result);
+            String result = Differ.generate(firstFileJSONPath, secondFileJSONPath, "json");
+            assertEquals(resultJSON, result);
         } catch (Exception e) {
             e.printStackTrace();
         }

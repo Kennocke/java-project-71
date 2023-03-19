@@ -10,7 +10,7 @@ public class Parser {
     public static Map<String, Object> parse(String stringToParse, String format) throws Exception {
         return switch (format) {
             case "json" -> parseJSON(stringToParse);
-            case "yml" -> parseYAML(stringToParse);
+            case "yml", "yaml" -> parseYAML(stringToParse);
             default -> throw new RuntimeException("Unknown format: " + format);
         };
     }

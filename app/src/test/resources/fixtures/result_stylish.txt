@@ -1,0 +1,8 @@
+{
+  - id: file
+  + id2: file2
+    menu2: test
+  - value: File
+  + value2: {menu1=papa, id3=mama}
+  + value3: [1, 2, 3]
+}

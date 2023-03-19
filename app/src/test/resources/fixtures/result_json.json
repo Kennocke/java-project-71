@@ -1,0 +1,28 @@
+[ {
+  "oldValue" : "file",
+  "operation" : "delete",
+  "key" : "id"
+}, {
+  "newValue" : "file2",
+  "operation" : "add",
+  "key" : "id2"
+}, {
+  "oldValue" : "test",
+  "operation" : "none",
+  "key" : "menu2"
+}, {
+  "oldValue" : "File",
+  "operation" : "delete",
+  "key" : "value"
+}, {
+  "newValue" : {
+    "menu1" : "papa",
+    "id3" : "mama"
+  },
+  "operation" : "add",
+  "key" : "value2"
+}, {
+  "newValue" : [ "1", "2", "3" ],
+  "operation" : "add",
+  "key" : "value3"
+} ]
