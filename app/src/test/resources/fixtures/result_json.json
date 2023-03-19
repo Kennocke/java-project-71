@@ -7,7 +7,7 @@
   "operation" : "add",
   "key" : "id2"
 }, {
-  "oldValue" : "test",
+  "oldValue" : "null",
   "operation" : "none",
   "key" : "menu2"
 }, {

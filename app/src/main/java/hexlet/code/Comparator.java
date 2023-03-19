@@ -20,10 +20,14 @@ public class Comparator {
                 comparisonResult.add(deleteRow(key, firstDataObject.get(key)));
             } else if (!firstDataObject.containsKey(key)) {
                 comparisonResult.add(addRow(key, secondDataObject.get(key)));
-            } else if (firstDataObject.get(key).equals(secondDataObject.get(key))) {
-                comparisonResult.add(addRowWithoutChanges(key, firstDataObject.get(key)));
+            } else if (String.valueOf(firstDataObject.get(key)).equals(String.valueOf(secondDataObject.get(key)))) {
+                comparisonResult.add(addRowWithoutChanges(key, String.valueOf(firstDataObject.get(key))));
             } else {
-                comparisonResult.add(updateRow(key, firstDataObject.get(key), secondDataObject.get(key)));
+                comparisonResult.add(updateRow(
+                        key,
+                        String.valueOf(firstDataObject.get(key)),
+                        String.valueOf(secondDataObject.get(key))
+                ));
             }
         }
 
