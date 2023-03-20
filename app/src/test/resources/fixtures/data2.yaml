@@ -1,0 +1,10 @@
+---
+menu2: null
+id2: file2
+value2:
+  menu1: papa
+  id3: mama
+value3:
+  - '1'
+  - '2'
+  - '3'
