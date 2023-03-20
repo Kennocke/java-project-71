@@ -54,7 +54,7 @@ public class DifferTest {
 
     @ParameterizedTest
     @MethodSource("getFileFormatAndOutputFormat")
-    public void generateTest(String fileFormat, String outputFormat) throws Exception {
+    public final void generateTest(String fileFormat, String outputFormat) throws Exception {
         String filePath1 = getFixturePath("data1." + fileFormat).toString();
         String filePath2 = getFixturePath("data2." + fileFormat).toString();
 
